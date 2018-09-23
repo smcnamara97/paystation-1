@@ -14,6 +14,8 @@ package paystation.domain;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import java.util.Map;
+import java.util.HashMap;
 
 public class PayStationImplTest {
 
@@ -137,5 +139,148 @@ public class PayStationImplTest {
         ps.addPayment(25);
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
+    }
+    
+    //Call to empty should return total amount entered
+    @Test
+    public void callEmptyReturnAmountEntered()
+            throws IllegalCoinException {
+        //add payments
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        //then use buy
+        ps.buy();
+        //do more add payments
+        ps.addPayment(10);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        //buy again
+        ps.buy();
+        //assert equals
+        assertEquals("Return 85 and then empty", 85, ps.empty());
+    }
+    
+    //Canceled entry does not add to the amount returned by empty.
+    @Test
+    public void cancelNoAddToEmpty()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.buy();
+        //After buy do another add payment
+        ps.addPayment(25);
+        //But then cancel
+        ps.cancel();
+        //That last 25 should not be added
+        assertEquals("Return should be 40 and empty", 40, ps.empty());
+    }
+    
+    //Call to empty resets the total to zero.
+    @Test
+    public void totalToZero()
+            throws IllegalCoinException {
+        //add payment of 5
+        ps.addPayment(5);
+        //use buy
+        ps.buy();
+        //do an assertEquals to check that there is 5 and call empty
+        assertEquals("Check for 5", 5, ps.empty());
+        //do another assertEquals to see that it is now 0
+        assertEquals("Check total for 0 now after empty", 0, ps.empty());
+    }
+    
+    
+    //Call to cancel returns a map containing one coin entered.
+    @Test
+    public void cancelReturnMapWithOneCoin() 
+            throws IllegalCoinException{
+        //add payment of 5
+        ps.addPayment(5);
+        //set map results to cancel (sets to 5)
+        Map<Integer, Integer> total = ps.cancel();
+        //make another map with and put one nickel in it
+        Map<Integer, Integer> test = new HashMap<>();
+        test.put(5, 1);
+        //assert equal to see if the test and total are the same
+        assertEquals("Test and total should be equal", test, total);
+    }
+    
+
+    //Call to cancel returns a map containing a mixture of coins entered
+    @Test
+    public void mapContainsCoinMixture()
+            throws IllegalCoinException {
+        //add payments of nickel, dime, and quarter
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        //run the cancel to total map to the payments added
+        Map<Integer, Integer> total = ps.cancel();
+        Map<Integer, Integer> test = new HashMap<>();
+        test.put (5, 1);
+        test.put (10, 1);
+        test.put (25, 1);
+        //assertEquals to make sure that test and total match
+        assertEquals("Should match the same with one nickel, one dime, and one quarter", test, total);
+    }
+    
+
+    //Call to cancel returns a map that does not contain a key for a coin not entered
+    //Ex: Enter two dimes and a quater, returns those three exact ones no nickels
+    @Test
+    public void mapReturnsCoinsOnlyEntered()
+            throws IllegalCoinException {
+        //add payments
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        //make our total map for the coins entered
+        Map<Integer, Integer> total = ps.cancel();
+        //make another map that we will use to test our total
+        Map<Integer, Integer> test = new HashMap<>();
+        test.put (10, 1);
+        test.put (25, 2);
+        //assertEquals to see if they match
+        assertEquals("Return one dime and two quarters and nothing else (no nickels or a bunch of dimes)", test, total);
+    }
+    
+
+    //Call to cancel clears the map
+    @Test
+    public void cancelClearsMap() 
+            throws IllegalCoinException {
+        //add payments
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        //use cancel which should clear total now
+        ps.cancel();
+        //set map to cancel
+        Map<Integer, Integer> total = ps.cancel();
+        //make an empty map
+        Map<Integer, Integer> test = new HashMap<>();
+        //assert equals to see if the match
+        assertEquals("Return no coins and match to test", test, total);
+    }
+    
+
+    //Call to buy clears the map
+    @Test
+    public void buyClearsMap()
+            throws IllegalCoinException {
+        //add payments
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        //use buy which should clear total
+        ps.buy();
+        //make map total
+        Map<Integer, Integer> total = ps.cancel();
+        //make test map to compare with total
+        Map<Integer, Integer> test = new HashMap<>();
+        //assertEquals to make sure total and test match to prove buy now clears
+        assertEquals("Should return no coins because buy clears the map", test, total);
     }
 }
