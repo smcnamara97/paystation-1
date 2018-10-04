@@ -1,5 +1,4 @@
 package paystation.domain;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class PayStationImpl implements PayStation {
     private int insertedSoFar;
     private int timeBought;
     //Keeps track of total
-    private int totalPaid;
+    private int totalPaid; //temp int for timeBought
     //Map to keep track of coins used
     Map<Integer, Integer> coinMap;
     //Gives value of nickel, dime and quarter
@@ -68,13 +67,15 @@ public class PayStationImpl implements PayStation {
 
     @Override
     public int readDisplay() {
+        System.out.println("Display: " + totalPaid);
         return timeBought;
     }
 
     @Override
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
-        totalPaid += insertedSoFar;
+        totalPaid = timeBought;
+        System.out.println("Bought: " + totalPaid);
         reset();
         return r;
     }
@@ -99,6 +100,7 @@ public class PayStationImpl implements PayStation {
         temp.putAll(coinMap);
         //reset coin map
         reset();
+        totalPaid = 0;
         //return the temp
         return temp;
     }
