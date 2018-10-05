@@ -24,9 +24,9 @@ import java.util.Map;
 public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
-    private int timeBought;
+    private int timeBought; //**CHANGED FROM INT
     //Keeps track of total
-    private int totalPaid; //temp int for timeBought
+    private double totalPaid; //temp int for timeBought
     //Map to keep track of coins used
     Map<Integer, Integer> coinMap;
     //Gives value of nickel, dime and quarter
@@ -119,10 +119,10 @@ public class PayStationImpl implements PayStation {
     
     //Empty sets total earned to zero but we return previous total
     //to save that value
-    public int empty() {
-        int temp = totalPaid;
+    public int empty() {  //**CHANGED FROM INT
+        double temp = totalPaid;
         totalPaid = 0;
-        return temp;
+        return (int)temp;
         
     }
 }
