@@ -62,11 +62,43 @@ public class PayStationImpl implements PayStation {
         }
 
         insertedSoFar += coinValue;
-        timeBought = insertedSoFar / 5 * 2;
+        timeBought = insertedSoFar / 5 * 2; //for Alphatown
+        
+        /*FOR BETATOWN
+        //NEED TO MAKE timeBought A DOUBLE
+        int tempFirstHour, tempSecondHour, tempThirdPlusHour;//temp holders for how many coins will contribut to that hour
+        int timeBought1;//for first hour
+        double timeBought2;//for second hour
+        int timeBought3;//for 3 or more hourse
+        
+        if(timeBought <= 60){ //first hour is $1.50 with timebought jawn
+            timeBought = insertedSoFar / 5 * 2;
+        } 
+        else if(insertedSoFar > 150 && insertedSoFar <= 350){ //for the second hour $2.00 + $1.50
+            tempFirstHour = 150; //$1.50 for the first hour
+            tempSecondHour = insertedSoFar - tempFirstHour;
+            timeBought1 = tempFirstHour / 5 * 2;
+            timeBought2 = tempSecondHour / 5 *1.5 ;
+            
+            timeBought = timeBought1+timeBought2;
+        }
+        else if(insertedSoFar >350){ //if its greater than 3 hours
+            //tempFirstHour = 150; //$1.50 for the first hour
+            tempSecondHour = 350; //amount it takes to pay for 2 hours
+            tempThirdPlusHour = insertedSoFar - tempSecondHour;
+            timeBought1 = tempFirstHour / 5 * 2;
+            timeBought2 = tempSecondHour / 5 *1.5 ;
+            timeBought3 = tempThirdPlusHour / 5; //gives $1 for every 5 cents
+            timeBought = timeBought1+timeBought2+timeBought3;
+        }
+        */
+        /*DELTATOWN
+            IMPLEMENTS ALPHA ON WEEKDAYS AND BETA ON WEEKENDS
+        */
     }
 
     @Override
-    public int readDisplay() {
+    public int readDisplay() { //**CHANGED FROM INT
         System.out.println("Display: " + totalPaid);
         return timeBought;
     }

@@ -38,7 +38,7 @@ public interface PayStation {
      *
      * @return the number to display on the pay station display
      */
-    public int readDisplay();
+    public int readDisplay(); //**CHANGED FROM INT
 
     /**
      * Buy parking time. Terminate the ongoing transaction and return a parking
@@ -60,5 +60,5 @@ public interface PayStation {
  
     Map<Integer, Integer> cancel(); 
     
-    public int empty();
+    public int empty(); //**CHANGED FROM INT
 }

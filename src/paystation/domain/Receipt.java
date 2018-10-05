@@ -20,5 +20,5 @@ public interface Receipt {
      *
      * @return number of minutes parking time
      */
-    public int value();
+    public int value(); //**CHANGED FROM INT
 }
