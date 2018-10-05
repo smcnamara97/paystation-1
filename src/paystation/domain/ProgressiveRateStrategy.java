@@ -1,6 +1,6 @@
 package paystation.domain
 
-public class BetatownStrategy implements RateStrategy{
+public class ProgressiveRateStrategy implements RateStrategy{
     public double calculateTime(int insertedSoFar){
         PlayStationImpl ps = new PlayStationImpl();
         int tempFirstHour, tempSecondHour, tempThirdPlusHour;//temp holders for how many coins will contribut to that hour
