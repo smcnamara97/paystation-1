@@ -4,6 +4,7 @@ package paystation.domain;
 import java.util.Scanner;
 import paystation.domain.LinearRateStrategy;
 import paystation.domain.ProgressiveRateStrategy;
+import paystation.domain.Alternation;
 
 
 public class Main extends PayStationImpl {
@@ -49,7 +50,7 @@ public class Main extends PayStationImpl {
                     break;
                 case 5://Change Rate Strategy
                     System.out.println("Change Rate Strategy\n");
-                    System.out.println("1: Linear Rate \n 2: Progressive Rate");
+                    System.out.println("1: Linear Rate \n2: Progressive Rate \n3:Alternative Rate");
                     int rate = menu.nextInt();
                     switch(rate){
                         case 1: //Linear Rate
@@ -61,6 +62,9 @@ public class Main extends PayStationImpl {
                             ProgressiveRateStrategy prs = new ProgressiveRateStrategy();
                             ps = new PayStationImpl(prs);
                             break;
+                        case 3://Alternative Rate
+                            Alternation alt = new Alternation();
+                            ps = new PayStationImpl(alt);
                     }
                     
                     break;
