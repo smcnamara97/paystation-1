@@ -2,12 +2,16 @@
 package paystation.domain;
 
 import java.util.Scanner;
+import paystation.domain.LinearRateStrategy;
+import paystation.domain.ProgressiveRateStrategy;
+
 
 public class Main extends PayStationImpl {
 
     public static void main(String[] args)
             throws IllegalCoinException {
-        PayStationImpl ps = new PayStationImpl(); //create an instance for the transaction
+        LinearRateStrategy lrs = new LinearRateStrategy();
+        PayStationImpl ps = new PayStationImpl(lrs); //create an instance for the transaction
         while (true) {
 
             System.out.println("Main Menu\n 1:Deposit Coins\n 2:Display\n "
@@ -44,6 +48,20 @@ public class Main extends PayStationImpl {
                     System.out.println("Purchase Canceled");
                     break;
                 case 5://Change Rate Strategy
+                    System.out.println("Change Rate Strategy\n");
+                    System.out.println("1: Linear Rate \n 2: Progressive Rate");
+                    int rate = menu.nextInt();
+                    switch(rate){
+                        case 1: //Linear Rate
+                            lrs = new LinearRateStrategy();
+                            ps = new PayStationImpl(lrs);
+                            
+                            break; 
+                        case 2: //Progressive Rate
+                            ProgressiveRateStrategy prs = new ProgressiveRateStrategy();
+                            ps = new PayStationImpl(prs);
+                            break;
+                    }
                     
                     break;
             }

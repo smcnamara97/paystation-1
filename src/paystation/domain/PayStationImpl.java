@@ -24,7 +24,7 @@ import java.util.Map;
 public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
-    private int timeBought; //**CHANGED FROM INT
+    public int timeBought; //**CHANGED FROM INT
     //Keeps track of total
     private double totalPaid; //temp int for timeBought
     //Map to keep track of coins used
@@ -38,9 +38,14 @@ public class PayStationImpl implements PayStation {
     private int dimeAmount = 0;
     private int quarterAmount = 0;
     
-    
-    PayStationImpl() {
+    RateStrategy rateStrategy;
+    PayStationImpl(){
         coinMap = new HashMap<>();
+
+    }
+    PayStationImpl(RateStrategy rs) {
+        coinMap = new HashMap<>();
+        rateStrategy = rs;
     }
 
 
@@ -63,7 +68,7 @@ public class PayStationImpl implements PayStation {
         }
 
         insertedSoFar += coinValue;
-        timeBought = insertedSoFar / 5 * 2; //for Alphatown
+        timeBought = (int)rateStrategy.calculateTime(insertedSoFar);
         
         /*FOR BETATOWN
         //NEED TO MAKE timeBought A DOUBLE

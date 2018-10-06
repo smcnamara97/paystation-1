@@ -1,5 +1,6 @@
 package paystation.domain;
 
-public interface RateStrategy extends PayStationImpl{
+
+public interface RateStrategy {
     public double calculateTime(int insertedSoFar);
 }
