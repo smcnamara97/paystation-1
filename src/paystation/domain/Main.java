@@ -77,11 +77,18 @@ public class Main extends PayStationImpl {
                     System.out.println("1: Linear Rate \n2: Progressive Rate \n3:Alternative Rate");
                     int rate = 0;
                     while(rate < 1 || rate > 3){
-                        rate = menu.nextInt();
-                        if(rate < 1 || rate > 3){
+                        
+                        try{
+                            if(rate < 1 || rate > 3){
+                                rate = menu.nextInt();
+                                System.out.println("Must input a number between 1 and 3.");
+                                System.out.println("1: Linear Rate \n2: Progressive Rate \n3:Alternative Rate");
+                            }
+                        }catch(Exception e){
                             System.out.println("Must input a number between 1 and 3.");
-                            System.out.println("1: Linear Rate \n2: Progressive Rate \n3:Alternative Rate");
+                            break;      
                         }
+                        
                     }
                     
                     switch(rate){
@@ -98,10 +105,16 @@ public class Main extends PayStationImpl {
                             int yn = 0;
                             System.out.println("Is it a weekend? 1 for yes and 2 for no");
                             while(yn < 1 || yn > 2){
-                                yn = menu.nextInt();
-                                if(yn < 1 || yn > 2){
-                                    System.out.println("Must enter a number between 1 and 2.");
+                                try{
+                                    yn = menu.nextInt();
+                                    if(yn < 1 || yn > 2){
+                                        System.out.println("Must enter a number between 1 and 2.");
+                                    }
+                                }catch(Exception e){
+                                    System.out.println("Have to enter a number between 1 and 2");
+                                    break;
                                 }
+                                
                             }
         
                             switch(yn){
