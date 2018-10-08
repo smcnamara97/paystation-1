@@ -4,7 +4,7 @@ import paystation.domain.LinearRateStrategy;
 import paystation.domain.ProgressiveRateStrategy;
 
 
-public class Alternation extends LinearRateStrategy{
+public class Alternation implements RateStrategy{
     PayStationImpl ps;
     Alternation(){ //constructor
         Scanner menu = new Scanner(System.in);

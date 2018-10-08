@@ -12,6 +12,7 @@ public class Main extends PayStationImpl {
     public static void main(String[] args)
             throws IllegalCoinException {
         LinearRateStrategy lrs = new LinearRateStrategy();
+        ProgressiveRateStrategy prs = new ProgressiveRateStrategy();
         PayStationImpl ps = new PayStationImpl(lrs); //create an instance for the transaction
         while (true) {
 
@@ -59,15 +60,25 @@ public class Main extends PayStationImpl {
                             
                             break; 
                         case 2: //Progressive Rate
-                            ProgressiveRateStrategy prs = new ProgressiveRateStrategy();
+                            prs = new ProgressiveRateStrategy();
                             ps = new PayStationImpl(prs);
                             break;
                         case 3://Alternative Rate
-                            Alternation alt = new Alternation();
-                            ps = new PayStationImpl(alt);
-                    }
+                            System.out.println("Is it a weekend? 1 for yes and 2 for no");
+                            int yn = menu.nextInt();
+        
+                            switch(yn){
+                                case 1: //weekend
+                                    ps = new PayStationImpl(prs);//implement progressive rate strategy
+                                    break;
+                
+                                case 2: //weekday
+                                    ps = new PayStationImpl(lrs); //implement linear rate strategy
+                                    break;                  
+                            }    
+                        }
                     
-                    break;
+                        break;
             }
 
         }

@@ -5,7 +5,6 @@ public class ProgressiveRateStrategy implements RateStrategy{
         
     }
     public double calculateTime(int insertedSoFar){
-        System.out.println("WE IN PROGRESSIVE PRINT\n");
         PayStationImpl ps = new PayStationImpl();
         int tempFirstHour, tempSecondHour, tempThirdPlusHour;//temp holders for how many coins will contribut to that hour
         int timeBought1;//for first hour
