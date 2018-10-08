@@ -19,7 +19,26 @@ public class Main extends PayStationImpl {
             System.out.println("Main Menu\n 1:Deposit Coins\n 2:Display\n "
                     + "3:Buy Ticket\n 4:Cancel\n 5:Change Rate Strategy\n");
             Scanner menu = new Scanner(System.in);
-            int choice = menu.nextInt();
+            
+            int choice = 0;
+            while(choice < 1 || choice > 5){
+                try{
+                    choice = menu.nextInt();
+                    if(choice < 1 || choice > 5){
+                        System.out.println("Incorrect data has been inputed choose a number between 1 and 5");
+                        System.out.println("Main Menu\n 1:Deposit Coins\n 2:Display\n "
+                    + "3:Buy Ticket\n 4:Cancel\n 5:Change Rate Strategy\n");
+                    }
+                }catch(Exception e){
+                    System.out.println("Incorrect data has been inputed choose a number between 1 and 5.");
+                    break;
+                }
+            }
+            
+                
+                
+            
+            
 
             
             // System.out.println("Your choice is: " + choice);
@@ -34,9 +53,13 @@ public class Main extends PayStationImpl {
                         coin = coinSlot.nextInt();
                         if (coin == 0) {
                             break;
+                        }else if(coin != 5 || coin != 10 || coin != 25){
+                            System.out.println("Must enter a coint that is 5, 10, or 25.");
+                        }else{
+                            ps.addPayment(coin);
                         }
                         //System.out.println("COIN: " + coin);
-                        ps.addPayment(coin);
+                        
                     }
                     break;
                 case 2: //Display
@@ -52,7 +75,15 @@ public class Main extends PayStationImpl {
                 case 5://Change Rate Strategy
                     System.out.println("Change Rate Strategy\n");
                     System.out.println("1: Linear Rate \n2: Progressive Rate \n3:Alternative Rate");
-                    int rate = menu.nextInt();
+                    int rate = 0;
+                    while(rate < 1 || rate > 3){
+                        rate = menu.nextInt();
+                        if(rate < 1 || rate > 3){
+                            System.out.println("Must input a number between 1 and 3.");
+                            System.out.println("1: Linear Rate \n2: Progressive Rate \n3:Alternative Rate");
+                        }
+                    }
+                    
                     switch(rate){
                         case 1: //Linear Rate
                             lrs = new LinearRateStrategy();
@@ -64,8 +95,14 @@ public class Main extends PayStationImpl {
                             ps = new PayStationImpl(prs);
                             break;
                         case 3://Alternative Rate
+                            int yn = 0;
                             System.out.println("Is it a weekend? 1 for yes and 2 for no");
-                            int yn = menu.nextInt();
+                            while(yn < 1 || yn > 2){
+                                yn = menu.nextInt();
+                                if(yn < 1 || yn > 2){
+                                    System.out.println("Must enter a number between 1 and 2.");
+                                }
+                            }
         
                             switch(yn){
                                 case 1: //weekend

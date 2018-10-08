@@ -106,6 +106,7 @@ public class PayStationImpl implements PayStation {
         Map<Integer, Integer> temp = new HashMap<>();
         //and put all of the stuff we got from coin map to temp map
         temp.putAll(coinMap);
+        System.out.println("Cancelled coin amount: " + totalPaid);
         //reset coin map
         reset();
         totalPaid = 0;
